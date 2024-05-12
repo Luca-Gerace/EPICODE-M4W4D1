@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center text-black">
+    <header class="w-full flex justify-center p-5 border-b border-[#333]">
+        <nav class="w-full md:w-[1024px] flex justify-between">
+            <div>LOGO</div>
+        </nav>
+    </header>
+
+    <!-- Product cards container -->
+    <section id="productsContainer" class="w-full md:w-[1024px] pt-8 px-4 md:px-8 lg:px-0 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
+        <!-- Product cards goes here -->
+    </section>
+
+    <!-- Create product modal - trigger button -->
+    <button id="openModal-button" onclick="openModal('modal')" class="fixed right-[100px] bottom-[100px] flex gap-3 text-white bg-blue-700 hover:bg-blue-800 rounded-full p-4" type="button">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/></svg>          
+        Add new product
+    </button>
+    
+    <!-- Create product modal -->
+    <div id="modal" class="hidden w-full h-full bg-[#00000075] overflow-hidden fixed top-0 left-0 z-50 flex justify-center items-center">
+        <div class="relative p-4 w-full md:w-[500px]">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="flex items-center justify-between p-3 border-b rounded-t">
+                    <h3 class="text-xl font-semibold">
+                        Create new product
+                    </h3>
+                    <button id="closeModal-button" onclick="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
+                    </button>
+                </div>
+                <div class="p-3">
+                    <!-- Create product form -->
+                    <form id="createForm" class="flex flex-col gap-3 py-3">
+                        <div class="flex flex-col gap-2">
+                          <label for="name">Product name</label>
+                          <input type="text" id="name" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Product Name" required />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="description">Product description</label>
+                            <input type="text" id="description" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Product description" required />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="brand">Product brand</label>
+                            <input type="text" id="brand" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Product brand" required />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="image">Product image</label>
+                            <input type="text" id="image" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Product image" required />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="price">Product price</label>
+                            <input type="number" id="price" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Product price" required />
+                        </div>
+                        <button type="submit" class="text-white text-center bg-blue-700 hover:bg-blue-800 rounded-lg w-full p-3 mt-3">Add product</button>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="backend.js"></script>
+</body>
+</html>

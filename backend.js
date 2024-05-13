@@ -12,23 +12,26 @@ const productsContainer = document.getElementById('productsContainer');
 // Spinner
 const spinner = document.getElementById('spinner');
 
-// Form di creazione prodotto
+// Form
 const createProductForm = document.getElementById('createProductForm');
+const updateProductForm = document.getElementById('updateProductForm');
 
-// Modale di creazione prodotto
-const modal = document.getElementById('modal');
+// Modali
+const createProductModal = document.getElementById('createProductModal');
+const updateProductModal = document.getElementById('updateProductModal');
+
+// Bottone modale di creazione
 const openModalButton = document.getElementById('openModal-button');
-const closeModalButton = document.getElementById('closeModal-button');
 
 /* ---------------------------- FUNZIONI ----------------------------- */
 // Apri modale
-function openModal() {
+function openModal(modal) {
     modal.classList.remove('hidden');
     openModalButton.classList.add('hidden');
 }
 
 // Chiudi modale
-function closeModal() {
+function closeModal(modal) {
     modal.classList.add('hidden');
     openModalButton.classList.remove('hidden');
 }
@@ -68,6 +71,55 @@ function createProductCard(product) {
     productsContainer.appendChild(card);
 }
 
+// Gestione modale di update prodotto
+function openUpdateModal(id) {
+
+    // Apro la modale di modifica prodotto
+    openModal(updateProductModal);
+
+    // Punto la card con uno specifico id (passato dalla funzione stessa)
+    const card = document.getElementById(`card-${id}`);
+
+    // Puntatatori agli input del form
+    let productNameInput = document.getElementById('updatedName');
+    let productDescriptionInput = document.getElementById('updatedDescription');
+    let productBrandInput = document.getElementById('updatedBrand');
+    let productImageInput = document.getElementById('updatedImage');
+    let productPriceInput = document.getElementById('updatedPrice');
+
+    // Popolo gli input del form con i valori del prodotto selezionato
+    productNameInput.value = card.querySelector(".product-name").innerText;
+    productDescriptionInput.value = card.querySelector(".product-description").innerText;
+    productBrandInput.value = card.querySelector(".product-brand").innerText;
+    productImageInput.value = card.querySelector(".product-image").getAttribute('src');
+    productPriceInput.value = card.querySelector(".product-price").innerText;
+
+    // Al click sul bottone di conferma parte un listener per gestire l'aggiornamento del prodotto
+    updateProductForm.addEventListener("submit", function (event) {
+
+        // Evito il comportamento predefinito del form
+        event.preventDefault();
+
+        // Definisco i dati del prodotto da aggiornare con i valori inseriti negli input del form
+        const updatedProduct = {
+            name: productNameInput.value,
+            description: productDescriptionInput.value,
+            brand: productBrandInput.value,
+            imageUrl: productImageInput.value,
+            price: productPriceInput.value,
+        };
+
+        // Chiamo la funzione di aggiornamento del prodotto passandogli l'id prodotto ed il prodotto modificato
+        updateProduct(id, updatedProduct);
+
+        // Resetto il form dopo l'invio
+        updateProductForm.reset();
+
+        // Chiudo la modale
+        closeModal(updateProductModal);
+    });
+}
+
 // Formatta la data di update prodotto
 function updateTime(data) {
     const dataObj = new Date(data);
@@ -76,52 +128,6 @@ function updateTime(data) {
     const updateTime = dataObj.toLocaleString('it-IT');
     
     return updateTime;
-}
-
-// Editare i dati di un prodotto esistente tramite form - TODO: rinominare funzione
-function openUpdateModal(id) {
-
-    // Punto la card con uno specifico id (passato dalla funzione stessa)
-    const card = document.getElementById(`card-${id}`);
-
-    // Chiedo all'utente di inserire i nuovi dati tramite prompt
-    const updateName = prompt(
-        "Nuovo nome:",
-        card.querySelector(".product-name").innerText
-    );
-
-    const updateDescription = prompt(
-        "Nuova Descrizione:",
-        card.querySelector(".product-description").innerText
-    );
-
-    const updateBrand = prompt(
-        "Nuovo Brand:",
-        card.querySelector(".product-brand").innerText
-    );
-
-    const updateImage = prompt(
-        "Nuova immagine:",
-        card.querySelector(".product-image").getAttribute('src')
-    );
-
-    const updatePrice = prompt(
-        "Nuovo prezzo:",
-        card.querySelector(".product-price").innerText
-    );
-  
-    // Utilizzo i dati inseriti dall'utente per aggiornare i dati del prodotto
-    const newData = {
-        name: updateName,
-        description: updateDescription,
-        brand: updateBrand,
-        imageUrl: updateImage,
-        price: updatePrice,
-    }
-
-    // Chiamo la funzione di update del prodotto passandogli l'id prodotto ed i nuovi dati
-    updateProduct(id, newData)
-
 }
 
 /* ------------------------- CRUD OPERATIONS ------------------------- */
@@ -173,16 +179,16 @@ function createProduct(newProduct) {
 }
 
 // PUT - Ho cambiato approccio rispetto a GET e POST
-const updateProduct = async (id, newData) => {
+const updateProduct = async (id, updatedProduct) => {
     try {
         const request = {
             method: 'PUT',
             headers: headers,
-            body: JSON.stringify(newData),
+            body: JSON.stringify(updatedProduct),
         }
 
         await fetch(`${url}/${id}`, request);
-        createProductCard(newData);
+        createProductCard(updatedProduct);
 
     } catch(error) {
         console.error('error:', error)
@@ -238,7 +244,7 @@ createProductForm.addEventListener("submit", function (event) {
     createProductForm.reset();
     
     // Chiudo la modale
-    closeModal();
+    closeModal(createProductModal);
 });
 
 // Lancio la funzione di fetch product al caricamento della pagina

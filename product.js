@@ -76,4 +76,4 @@ const fetchProduct = async () => {
 
 /* -------------------------- EVENT LISTNER -------------------------- */
 // Lancio la funzione di fetch product al caricamento della pagina
-document.addEventListener("DOMContentLoaded", () => fetchProducts());
+document.addEventListener("DOMContentLoaded", () => fetchProduct());

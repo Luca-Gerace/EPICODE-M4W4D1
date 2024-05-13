@@ -19,5 +19,6 @@ Per eseguire questo progetto in locale, segui questi passaggi:
 ## Extra ✨
 - Utilizzo di uno Spinner durante il caricamento dei dati della pagina
 - Utilizzo di modali per la gestione dei prodotti (creazione, modifica e cancellazione)
+- Visualizzazione di un message di successo/errore ad ogni operazione crud fatta sulla pagina di backend
 - Funzione per l'assegnazione di un'immagine placeholder ad un nuovo prodotto
 - Visualizzazione data e ora ultimo aggiornamento di ogni prodotto sulla pagina di backend

@@ -38,7 +38,7 @@
     </div>
 
     <!-- Create product modal - trigger button -->
-    <button id="openModal-button" class="fixed right-[20px] bottom-[20px] lg:right-[40px] lg:bottom-[40px] flex gap-3 text-white bg-[#7D4DE8] hover:bg-[#632ae2] rounded-full p-4 shadow-md hover:shadow-lg shadow-purple-500/50 hover:shadow-purple-500/50" type="button">
+    <button id="openModal-button" class="fixed z-50 right-[20px] bottom-[20px] lg:right-[40px] lg:bottom-[40px] flex gap-3 text-white bg-[#7D4DE8] hover:bg-[#632ae2] rounded-full p-4 shadow-md hover:shadow-lg shadow-purple-500/50 hover:shadow-purple-500/50" type="button">
         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/></svg>          
         Add product
     </button>
@@ -73,7 +73,7 @@
                         <div class="flex flex-col gap-2">
                             <div class="flex justify-between">
                                 <label for="image">Product image</label>
-                                <a onclick="usePlaceholderImg()" class="cursor-pointer text-[12px] text-white text-center bg-[#FF9C16] hover:bg-[#F09111] rounded-full py-0.5 px-2">Use a placeholder</a>
+                                <a onclick="usePlaceholderImg()" class="cursor-pointer text-[12px] text-white text-center bg-[#FF9C16] hover:bg-[#F09111] rounded-full py-0.5 px-2">Use a placeholder image</a>
                             </div>
                             <input type="text" id="image" class="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" placeholder="Insert product image" required />
                         </div>

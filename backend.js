@@ -164,6 +164,35 @@ function usePlaceholderImg() {
     image.value = placeholderImg;
 }
 
+// Mostra messaggio esito azione
+function messageResult(action, boolean) {
+
+    // Costanti con valori variabili, in base al parametro booleano che riceve in input
+    const bgColor = boolean ? 'bg-green-600' : 'bg-red-600'; // colore di sfondo del messaggio
+    const message = boolean ? `${action} Product: operation completed successfully.` : `${action} Product: operation failed, please try again later.`; // testo del messaggio
+
+    // Creo container messaggio
+    const messageContainer = document.createElement('div');
+
+    // Aggiungo classi tailwind
+    messageContainer.classList.add( `${bgColor}`, 'p-4', 'fixed', 'z-50', 'left-[20px]', 'bottom-[20px]', 'lg:left-[40px]', 'lg:bottom-[40px]', 'text-white', 'font-semibold', 'rounded-lg', 'max-w-[280px]', 'shadow-xl');
+
+    // Includo il testo del messaggio nel contenitore
+    messageContainer.innerText = `${message}`
+
+    // Includo il contenitore con il messaggio nella pagina
+    productsContainer.appendChild(messageContainer);
+
+    // Nascondo bottone della modale per non ingombrare il viewport mobile
+    openModalButton.classList.add('hidden');
+
+    // Imposto un timeout che allo scadere rimuove il messaggio
+    setTimeout(() => {
+        messageContainer.remove();
+        openModalButton.classList.remove('hidden');
+    }, '3000');
+}
+
 /* ------------------------- CRUD OPERATIONS ------------------------- */
 // GET
 const fetchProducts = () => {
@@ -207,9 +236,16 @@ function createProduct(newProduct) {
         .then((newProduct) => {
             // Funzione per creare una card con il nuovo prodotto
             createProductCard(newProduct);
+
+            // Mostro messaggio di successo
+            messageResult('Create', true);
         })
         // Gestisco eventuali errori durante la richiesta
-        .catch((error) => console.error("Errore:", error));
+        .catch((error) => {
+            console.error("Errore:", error);
+            // Mostro messaggio di errore
+            messageResult('Create', false);
+        });
 }
 
 // PUT - Ho cambiato approccio rispetto a GET e POST
@@ -222,13 +258,20 @@ const updateProduct = async (id, updatedProduct) => {
         }
 
         await fetch(`${url}/${id}`, request);
-        createProductCard(updatedProduct);
+
+        // fetch dei prodotti
+        fetchProducts();
+
+        // Mostro messaggio di successo
+        messageResult('Update', true);
 
     } catch(error) {
-        console.error('error:', error)
-    }
+        // Gestisco eventuali errori durante la richiesta
+        console.error('error:', error);
 
-    fetchProducts();
+        // Mostro messaggio di errore
+        messageResult('Update', false);
+    }
 }
 
 // DELETE - Ho cambiato approccio rispetto a GET e POST
@@ -241,11 +284,19 @@ const deleteProduct = async (id) => {
 
         await fetch(`${url}/${id}`, request);
 
-    } catch(error) {
-        console.error('error:', error)
-    }
+        // fetch dei prodotti
+        fetchProducts();
+        
+        // Mostro messaggio di successo
+        messageResult('Delete', true);
 
-    fetchProducts();
+    } catch(error) {
+        // Gestisco eventuali errori durante la richiesta
+        console.error('error:', error);
+
+        // Mostro messaggio di errore
+        messageResult('Delete', false);
+    }
 }
 
 /* -------------------------- EVENT LISTNER -------------------------- */

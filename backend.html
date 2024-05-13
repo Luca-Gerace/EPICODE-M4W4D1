@@ -38,7 +38,7 @@
     </div>
 
     <!-- Create product modal - trigger button -->
-    <button id="openModal-button" onclick="openModal(createProductModal)" class="fixed right-[20px] bottom-[20px] lg:right-[40px] lg:bottom-[40px] flex gap-3 text-white bg-[#7D4DE8] hover:bg-[#632ae2] rounded-full p-4 shadow-md hover:shadow-lg shadow-purple-500/50 hover:shadow-purple-500/50" type="button">
+    <button id="openModal-button" class="fixed right-[20px] bottom-[20px] lg:right-[40px] lg:bottom-[40px] flex gap-3 text-white bg-[#7D4DE8] hover:bg-[#632ae2] rounded-full p-4 shadow-md hover:shadow-lg shadow-purple-500/50 hover:shadow-purple-500/50" type="button">
         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/></svg>          
         Add product
     </button>
@@ -47,7 +47,7 @@
     <div id="createProductModal" class="hidden w-full h-full bg-[#00000075] overflow-hidden overflow-y-scroll fixed top-0 left-0 z-50 flex justify-center items-center">
         <div class="fixed bottom-0 md:relative p-0 md:p-4 w-full md:w-[500px]">
             <div class="relative bg-white rounded-lg shadow">
-                <div class="flex items-center justify-between p-3 border-b rounded-t">
+                <div class="flex items-center justify-between px-6 py-3 md:px-4 border-b rounded-t">
                     <h3 class="text-xl font-semibold">
                         Create new product
                     </h3>
@@ -55,7 +55,7 @@
                         <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
                     </button>
                 </div>
-                <div class="p-3">
+                <div class="px-6 py-3 md:px-4">
                     <!-- Create product form -->
                     <form id="createProductForm" class="flex flex-col gap-3 py-3">
                         <div class="flex flex-col gap-2">
@@ -92,7 +92,7 @@
     <div id="updateProductModal" class="hidden w-full h-full bg-[#00000075] overflow-hidden overflow-y-scroll fixed top-0 left-0 z-50 flex justify-center items-center">
         <div class="fixed bottom-0 md:relative p-0 md:p-4 w-full md:w-[500px]">
             <div class="relative bg-white rounded-lg shadow">
-                <div class="flex items-center justify-between p-3 border-b rounded-t">
+                <div class="flex items-center justify-between px-6 py-3 md:px-4 border-b rounded-t">
                     <h3 class="text-xl font-semibold">
                         Update product
                     </h3>
@@ -100,7 +100,7 @@
                         <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
                     </button>
                 </div>
-                <div class="p-3">
+                <div class="px-6 py-3 md:px-4">
                     <!-- Update product form -->
                     <form id="updateProductForm" class="flex flex-col gap-3 py-3">
                         <div class="flex flex-col gap-2">
@@ -134,7 +134,7 @@
     <div id="deleteProductModal" class="hidden w-full h-full bg-[#00000075] overflow-hidden overflow-y-scroll fixed top-0 left-0 z-50 flex justify-center items-center">
         <div class="fixed bottom-0 md:relative p-0 md:p-4 w-full md:w-[500px]">
             <div class="relative bg-white rounded-lg shadow">
-                <div class="flex items-center justify-between p-3 border-b rounded-t">
+                <div class="flex items-center justify-between px-6 py-3 md:px-4 border-b rounded-t">
                     <h3 class="text-xl font-semibold">
                         Delete product
                     </h3>
@@ -142,7 +142,7 @@
                         <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
                     </button>
                 </div>
-                <div class="p-3">
+                <div class="px-6 py-3 md:px-4">
                     <!-- Delete product form -->
                     <form id="deleteProductForm" class="min-h-[200px] flex flex-col justify-between gap-3 py-3">
                         <div class="flex justify-center text-center">

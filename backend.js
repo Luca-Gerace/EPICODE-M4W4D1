@@ -22,7 +22,7 @@ const createProductModal = document.getElementById('createProductModal');
 const updateProductModal = document.getElementById('updateProductModal');
 const deleteProductModal = document.getElementById('deleteProductModal');
 
-// Bottone modale di creazione
+// Bottone apertura modale di creazione
 const openModalButton = document.getElementById('openModal-button');
 
 // Placeholder img
@@ -249,6 +249,9 @@ const deleteProduct = async (id) => {
 }
 
 /* -------------------------- EVENT LISTNER -------------------------- */
+// Al click sul bottone si apre la modale di creazione prodotto
+openModalButton.addEventListener("click",  () => openModal(createProductModal));
+
 // Listener alla compilazione del form di creazione prodotto
 createProductForm.addEventListener("submit", function (event) {
 
@@ -282,4 +285,4 @@ createProductForm.addEventListener("submit", function (event) {
 });
 
 // Lancio la funzione di fetch product al caricamento della pagina
-document.addEventListener("DOMContentLoaded", fetchProducts());
+document.addEventListener("DOMContentLoaded", () => fetchProducts());

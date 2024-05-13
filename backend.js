@@ -9,8 +9,11 @@ const headers = {
 // Container card prodotti
 const productsContainer = document.getElementById('productsContainer');
 
+// Spinner
+const spinner = document.getElementById('spinner');
+
 // Form di creazione prodotto
-const createForm = document.getElementById('createForm');
+const createProductForm = document.getElementById('createProductForm');
 
 // Modale di creazione prodotto
 const modal = document.getElementById('modal');
@@ -32,21 +35,22 @@ function closeModal() {
 
 // Creazione card prodotto
 function createProductCard(product) {
-    // Creo la card con il prodotto
+    
+    // Creo la card
     let card = document.createElement('div');
 
     // Aggiungo le classi tailwind
-    card.classList.add('w-full', 'bg-white', 'shadow-md', 'rounded-xl', 'duration-500', 'hover:scale-105', 'hover:shadow-xl');
+    card.classList.add('w-full', 'bg-white', 'shadow-lg', 'rounded-xl', 'lg:duration-500', 'lg:hover:scale-105', 'lg:hover:shadow-xl');
     
     // Aggiungo i contenuti del prodotto alla card
     card.innerHTML = `
         <div id="card-${product._id}">
-            <img src="${product.imageUrl}" alt="${product.name}" class="product-image w-full h-auto max-h-[230px] object-cover rounded-t-xl" />
+            <img src="${product.imageUrl}" alt="${product.name}" class="product-image aspect-[1/1] object-cover rounded-t-xl" />
             <div class="flex flex-col gap-3 p-4">
                 <span class="product-brand text-gray-400 uppercase text-xs">${product.brand}</span>
                 <strong class="product-name text-lg text-black truncate capitalize">${product.name}</strong>
-                <p class="product-description text-gray-400 text-xs">${product.description}</p>
-                <p class="text-lg font-semibold text-black cursor-auto">$<span class="product-price">${product.price}</span></p>
+                <p class="product-description text-gray-400 truncate text-xs">${product.description}</p>
+                <p class="text-lg font-semibold text-black">$<span class="product-price">${product.price}</span></p>
                 <button onclick="openUpdateModal('${product._id}')" class="flex justify-center gap-1 text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg p-3 w-full">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/></svg>
                     Edit product
@@ -55,12 +59,23 @@ function createProductCard(product) {
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
                     Delete product
                 </button>
+                <span class="text-gray-400 truncate text-[10px] text-center">Last update: ${updateTime(product.updatedAt)}</span>
             </div>
         </div>
     `
 
     // Aggiungo la card nel container
     productsContainer.appendChild(card);
+}
+
+// Formatta la data di update prodotto
+function updateTime(data) {
+    const dataObj = new Date(data);
+    
+    // Formatta il dato nel formato IT
+    const updateTime = dataObj.toLocaleString('it-IT');
+    
+    return updateTime;
 }
 
 // Editare i dati di un prodotto esistente tramite form - TODO: rinominare funzione
@@ -113,6 +128,9 @@ function openUpdateModal(id) {
 // GET
 const fetchProducts = () => {
 
+    // Rendo visibile  lo spinner fino all'arrivo dei dati
+    spinner.classList.remove('hidden');
+
     // Pulisco il container delle card prima di ripopolarlo
     productsContainer.innerHTML = '';
 
@@ -125,6 +143,7 @@ const fetchProducts = () => {
     fetch(url, request)
         .then((response) => response.json())
         .then((products) => {
+            spinner.classList.add('hidden');
             // Ciclo l'array dei prodotti e per ognuno di questi lancio la funzione di creazione card prodotto
             products.forEach((product) => createProductCard(product));
         })
@@ -153,7 +172,7 @@ function createProduct(newProduct) {
         .catch((error) => console.error("Errore:", error));
 }
 
-// PUT
+// PUT - Ho cambiato approccio rispetto a GET e POST
 const updateProduct = async (id, newData) => {
     try {
         const request = {
@@ -172,7 +191,7 @@ const updateProduct = async (id, newData) => {
     fetchProducts();
 }
 
-// DELETE
+// DELETE - Ho cambiato approccio rispetto a GET e POST
 const deleteProduct = async (id) => {
     try {
         const request = {
@@ -191,7 +210,8 @@ const deleteProduct = async (id) => {
 
 /* -------------------------- EVENT LISTNER -------------------------- */
 // Listener alla compilazione del form di creazione prodotto
-createForm.addEventListener("submit", function (event) {
+createProductForm.addEventListener("submit", function (event) {
+
     // Evito il comportamento predefinito del form
     event.preventDefault();
 
@@ -211,16 +231,15 @@ createForm.addEventListener("submit", function (event) {
         price: productPrice.value,
     };
 
+    // Chiamata in POST per creare il prodotto
     createProduct(newProduct);
 
     // Resetto il form dopo l'invio
-    createForm.reset();
+    createProductForm.reset();
     
     // Chiudo la modale
     closeModal();
 });
 
-// Lancio la fetch che recupera i prodotti al caricamento della pagina
-document.addEventListener("DOMContentLoaded", function () {
-    fetchProducts();
-});
+// Lancio la funzione di fetch product al caricamento della pagina
+document.addEventListener("DOMContentLoaded", fetchProducts());

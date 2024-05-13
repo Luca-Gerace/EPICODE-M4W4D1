@@ -15,3 +15,8 @@ Questo progetto mira a replicare il funzionamento di base di un marketplace di s
 Per eseguire questo progetto in locale, segui questi passaggi:
 1. Clona il repository: `git clone https://github.com/Luca-Gerace/EPICODE-M4W4D1.git`
 2. Apri `frontend.html` o `backend.html` nel tuo browser web 🌐
+
+## Extra ✨
+- Utilizzo di uno Spinner durante il caricamento dei dati della pagina
+- Funzione per l'assegnazione di un'immagine placeholder ad un nuovo prodotto
+- Visualizzazione data e ora ultimo aggiornamento di ogni prodotto sulla pagina di backend

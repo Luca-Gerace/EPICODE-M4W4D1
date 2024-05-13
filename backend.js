@@ -23,6 +23,9 @@ const updateProductModal = document.getElementById('updateProductModal');
 // Bottone modale di creazione
 const openModalButton = document.getElementById('openModal-button');
 
+// Placeholder img
+const placeholderImg = 'assets/placeholder.png';
+
 /* ---------------------------- FUNZIONI ----------------------------- */
 // Apri modale
 function openModal(modal) {
@@ -128,6 +131,15 @@ function updateTime(data) {
     const updateTime = dataObj.toLocaleString('it-IT');
     
     return updateTime;
+}
+
+// Assegna un placeholder come immagine di prodotto
+function usePlaceholderImg() {
+    // Punto l'input dell'immagine di prodotto
+    const image = document.getElementById('image');
+
+    // Gli assegno come valore il path dell'immagine placeholder
+    image.value = placeholderImg;
 }
 
 /* ------------------------- CRUD OPERATIONS ------------------------- */

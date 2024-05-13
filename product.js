@@ -9,6 +9,9 @@ const headers = {
 // Container prodotto
 const productContainer = document.getElementById('productContainer');
 
+// Spinner
+const spinner = document.getElementById('spinner');
+
 // Title pagina
 const pageTitle = document.querySelector('title');
 
@@ -21,10 +24,16 @@ const productId = params.get('q');
 
 
 /* ---------------------------- FUNZIONI ----------------------------- */
-// Creazione card prodotto
+// Creazione prodotto
 function createProduct(product) {
+
+    // Creo il contenitore del prodotto
     let productInfo = document.createElement('div');
+
+    // Aggiungo le classi tailwind
     productInfo.classList.add('w-full', 'flex', 'flex-col', 'md:flex-row', 'gap-4');
+
+    // Aggiungo i contenuti del prodotto
     productInfo.innerHTML = `
         <img src="${product.imageUrl}" alt="${product.name}" class="w-full md:w-1/2 aspect-[1/1] object-cover rounded-xl" />
         <div class="w-full md:w-1/2 flex flex-col gap-4 p-4">
@@ -34,7 +43,11 @@ function createProduct(product) {
             <p class="text-lg font-semibold text-black pt-3">$${product.price}</p>
         </div>
     `
+    
+    // Rimuovo lo spinner
+    spinner.remove();
 
+    // Aggiungo il prodotto al container
     productContainer.appendChild(productInfo);
 }
 

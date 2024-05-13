@@ -125,7 +125,7 @@ function openUpdateModal(id) {
     });
 }
 
-// Gestione modale di update prodotto
+// Gestione modale di delete prodotto
 function openDeleteModal(id) {
 
     // Apro la modale di cancellazione prodotto
@@ -183,7 +183,7 @@ function messageResult(action, boolean) {
     // Includo il contenitore con il messaggio nella pagina
     productsContainer.appendChild(messageContainer);
 
-    // Nascondo bottone della modale per non ingombrare il viewport mobile
+    // Nascondo bottone della modale per non ingombrare il viewport su mobile
     openModalButton.classList.add('hidden');
 
     // Imposto un timeout che allo scadere rimuove il messaggio

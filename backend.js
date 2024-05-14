@@ -174,7 +174,7 @@ function messageResult(action, boolean) {
 
     // Costanti con valori variabili, in base al parametro booleano che riceve in input
     const bgColor = boolean ? 'bg-green-600' : 'bg-red-600'; // colore di sfondo del messaggio
-    const message = boolean ? `${action} Product: operation completed successfully.` : `${action} Product: operation failed, please try again later.`; // testo del messaggio
+    const message = boolean ? `operation completed successfully.` : `operation failed, please try again.`; // testo del messaggio
 
     // Creo container messaggio
     const messageContainer = document.createElement('div');
@@ -183,12 +183,12 @@ function messageResult(action, boolean) {
     messageContainer.classList.add( `${bgColor}`, 'p-4', 'fixed', 'z-50', 'left-[20px]', 'bottom-[20px]', 'lg:left-[40px]', 'lg:bottom-[40px]', 'text-white', 'font-semibold', 'rounded-lg', 'max-w-[280px]', 'shadow-xl');
 
     // Includo il testo del messaggio nel contenitore
-    messageContainer.innerText = `${message}`
+    messageContainer.innerText = `${action} Product: ${message}`
 
     // Includo il contenitore con il messaggio nella pagina
     productsContainer.appendChild(messageContainer);
 
-    // Nascondo bottone della modale per non ingombrare il viewport su mobile
+    // Nascondo bottone della modale per non ingombrare il viewport (su mobile)
     openModalButton.classList.add('hidden');
 
     // Imposto un timeout che allo scadere rimuove il messaggio

@@ -1,9 +1,9 @@
 # Phone Deals
-Questo progetto mira a replicare il funzionamento di base di un marketplace di smartphone.
+Questo progetto mira a replicare il funzionamento delle operazioni necessarie per la gestione dei prodotti di un marketplace di smartphone.
 
 ## Obiettivi 🎯
 - Realizzare una frontpage dove visualizzare tutti i prodotti
-- Realizzare una backoffice page dalla quale è possibile creare (tramite form), modificare o cancellare prodotti
+- Realizzare una backoffice page dalla quale è possibile creare, modificare o cancellare prodotti
 - Realizzare una product page (passando l'id del prodotto come query string) dove visualizzare nel dettaglio il singolo prodotto e tutte le relative informazioni
 
 ## Tecnologie Utilizzate 💻

@@ -15,6 +15,8 @@ const spinner = document.getElementById('spinner');
 // Title pagina
 const pageTitle = document.querySelector('title');
 
+// Link per tornare indietro
+const goBack = document.getElementById('goBack');
 
 /* ------------------------ URL SEARCH PARAMS ------------------------ */
 const params = new URLSearchParams(window.location.search);
@@ -77,3 +79,6 @@ const fetchProduct = async () => {
 /* -------------------------- EVENT LISTNER -------------------------- */
 // Lancio la funzione di fetch product al caricamento della pagina
 document.addEventListener("DOMContentLoaded", () => fetchProduct());
+
+// Al click torno nella pagina navigata in precedenza
+goBack.addEventListener("click", () => window.history.back());

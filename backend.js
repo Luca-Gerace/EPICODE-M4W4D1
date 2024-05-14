@@ -29,18 +29,6 @@ const openModalButton = document.getElementById('openModal-button');
 const placeholderImg = 'assets/placeholder.png';
 
 /* ---------------------------- FUNZIONI ----------------------------- */
-// Apri modale
-function openModal(modal) {
-    modal.classList.remove('hidden');
-    openModalButton.classList.add('hidden');
-}
-
-// Chiudi modale
-function closeModal(modal) {
-    modal.classList.add('hidden');
-    openModalButton.classList.remove('hidden');
-}
-
 // Creazione card prodotto
 function createProductCard(product) {
     
@@ -53,17 +41,21 @@ function createProductCard(product) {
     // Aggiungo i contenuti del prodotto alla card
     card.innerHTML = `
         <div id="card-${product._id}">
-            <img src="${product.imageUrl}" alt="${product.name}" class="product-image aspect-[1/1] object-cover rounded-t-xl" />
+            <a href="product.html?q=${product._id}">
+                <img src="${product.imageUrl}" alt="${product.name}" class="product-image aspect-[1/1] object-cover rounded-t-xl" />
+            </a>
             <div class="flex flex-col gap-3 p-4">
-                <span class="product-brand text-gray-400 uppercase text-xs">${product.brand}</span>
-                <strong class="product-name text-lg text-black truncate capitalize">${product.name}</strong>
-                <p class="product-description text-gray-400 truncate text-xs">${product.description}</p>
-                <p class="text-lg font-semibold text-black">$<span class="product-price">${product.price}</span></p>
-                <button onclick="openUpdateModal('${product._id}')" class="flex justify-center gap-1 text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg p-3 w-full">
+                <a href="product.html?q=${product._id}">
+                    <span class="product-brand text-gray-400 uppercase text-xs block pb-3">${product.brand}</span>
+                    <h3 class="product-name text-lg text-black font-bold truncate capitalize pb-3">${product.name}</h3>
+                    <p class="product-description text-gray-400 truncate text-xs pb-3">${product.description}</p>
+                    <p class="text-lg font-semibold text-black">$<span class="product-price pb-3">${product.price}</span></p>
+                </a>
+                <button onclick="handleUpdateModal('${product._id}')" class="flex justify-center gap-1 text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg p-3 w-full">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/></svg>
                     Edit product
                 </button>
-                <button onclick="openDeleteModal('${product._id}')" class="flex justify-center gap-1 text-white bg-red-400 hover:bg-red-600 rounded-lg p-3 w-full">
+                <button onclick="handleDeleteModal('${product._id}')" class="relative flex justify-center gap-1 text-white bg-red-400 hover:bg-red-600 rounded-lg p-3 w-full">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
                     Delete product
                 </button>
@@ -76,8 +68,20 @@ function createProductCard(product) {
     productsContainer.appendChild(card);
 }
 
+// Apri modale
+function openModal(modal) {
+    modal.classList.remove('hidden');
+    openModalButton.classList.add('hidden');
+}
+
+// Chiudi modale
+function closeModal(modal) {
+    modal.classList.add('hidden');
+    openModalButton.classList.remove('hidden');
+}
+
 // Gestione modale di update prodotto
-function openUpdateModal(id) {
+function handleUpdateModal(id) {
 
     // Apro la modale di modifica prodotto
     openModal(updateProductModal);
@@ -126,7 +130,7 @@ function openUpdateModal(id) {
 }
 
 // Gestione modale di delete prodotto
-function openDeleteModal(id) {
+function handleDeleteModal(id) {
 
     // Apro la modale di cancellazione prodotto
     openModal(deleteProductModal);
@@ -145,7 +149,8 @@ function openDeleteModal(id) {
     });
 }
 
-// Formatta la data di update prodotto
+/* ------------------------ FUNZIONI EXTRA -------------------------- */
+// Formatta la data di ultimo update prodotto
 function updateTime(data) {
     const dataObj = new Date(data);
     
@@ -194,7 +199,7 @@ function messageResult(action, boolean) {
 }
 
 /* ------------------------- CRUD OPERATIONS ------------------------- */
-// GET
+// GET - con approccio fetch/then
 const fetchProducts = () => {
 
     // Rendo visibile  lo spinner fino all'arrivo dei dati
@@ -220,7 +225,7 @@ const fetchProducts = () => {
         .catch((error) => console.error("Errore:", error));
 }
 
-// POST
+// POST - con approccio fetch/then
 function createProduct(newProduct) {
 
     // Definisco la tipologia di request
@@ -248,7 +253,7 @@ function createProduct(newProduct) {
         });
 }
 
-// PUT - Ho cambiato approccio rispetto a GET e POST
+// PUT - con approccio async/await (try/catch)
 const updateProduct = async (id, updatedProduct) => {
     try {
         const request = {
@@ -274,7 +279,7 @@ const updateProduct = async (id, updatedProduct) => {
     }
 }
 
-// DELETE - Ho cambiato approccio rispetto a GET e POST
+// DELETE - con approccio async/await (try/catch)
 const deleteProduct = async (id) => {
     try {
         const request = {
